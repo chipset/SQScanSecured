@@ -6,7 +6,7 @@ pipeline {
         // OR set up a secret text credential for each of the variables.
         ENDEVOR=credentials("EndevorHost") //Connection string for Endevor
 
-        ZOWE_OPT_HOSTNAME=credentials("Mstrsvw")
+        ZOWE_OPT_HOSTNAME=credentials("MSTRSVW")
         ZOWE_OPT_HOST="$ZOWE_OPT_HOSTNAME"   //Some commands require ZOWE_OPT_HOST, so it's added here.
 
         // z/OSMF Connection Details
