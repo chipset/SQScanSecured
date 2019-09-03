@@ -4,10 +4,10 @@ pipeline {
         // Set up Environment Variables
         //CHANGE THIS SECTION FOR EACH SYSTEM 
         // OR set up a secret text credential for each of the variables.
-        ENDEVOR=" --port 7080 --protocol http --reject-unauthorized false -i NDVRWEBS --comment SQScan --ccid SQSCAN"
+        ENDEVOR=credentials("EndevorHost") //Connection string for Endevor
 
-        ZOWE_OPT_HOSTNAME="mstrsvw.lvn.broadcom.net"
-        ZOWE_OPT_HOST="$ZOWE_OPT_HOSTNAME"
+        ZOWE_OPT_HOSTNAME=credentials("Mstrsvw")
+        ZOWE_OPT_HOST="$ZOWE_OPT_HOSTNAME"   //Some commands require ZOWE_OPT_HOST, so it's added here.
 
         // z/OSMF Connection Details
         ZOWE_OPT_PORT="443"
