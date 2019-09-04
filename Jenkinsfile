@@ -42,7 +42,7 @@ pipeline {
                 bat returnStatus: true, script: 'move /y *.cpy ./copybooks'
 
                 withSonarQubeEnv('VaughnsServer') {
-                    bat "$SQScanner4\\bin\\sonar-scanner.bat"
+                    bat "$scannerHome\\bin\\sonar-scanner.bat"
                 }
             }
         }
