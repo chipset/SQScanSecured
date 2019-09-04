@@ -27,15 +27,18 @@ pipeline {
         }
         stage('SonarQube Scan') {
             steps {
-                    // Starts the SonarQube Scan
-                    // We want to ensure these directories exist, however if the call fails, we are ok with that.
-                    // Hence the returnStatus always returns true.  The BAT function only works on windows, I believe.
-                    // use SH for linux/mac and change the scanner function.  This could also use the scanner plugin.
-                    bat returnStatus: true, script: 'mkdir cobol'
-                    bat returnStatus: true, script: 'mkdir copybooks'
-                    bat returnStatus: true, script: 'move /y *.COBOL ./cobol'
-                    bat returnStatus: true, script: 'move /y *.cpy ./copybooks'
-                    bat "c:\\sonar-scanner\\bin\\sonar-scanner.bat"
+                // Starts the SonarQube Scan
+                // We want to ensure these directories exist, however if the call fails, we are ok with that.
+                // Hence the returnStatus always returns true.  The BAT function only works on windows, I believe.
+                // use SH for linux/mac and change the scanner function.  This could also use the scanner plugin.
+                bat returnStatus: true, script: 'mkdir cobol'
+                bat returnStatus: true, script: 'mkdir copybooks'
+                bat returnStatus: true, script: 'move /y *.COBOL ./cobol'
+                bat returnStatus: true, script: 'move /y *.cpy ./copybooks'
+                def scannerHome = tool 'SQScanner4.0';
+                withSonarQubeEnv('VaughnsServer') {
+                    bat "%SQScanner4%\\bin\\sonar-scanner.bat"
+                }
             }
         }
         stage('Clean up') {
