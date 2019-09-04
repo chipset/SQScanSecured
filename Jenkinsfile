@@ -18,6 +18,7 @@ pipeline {
         
         //Defined to use SonarScanner from Global Tools.
         def scannerHome = tool 'SQScanner4.0';
+
     }
     stages {
         stage('Download Code') {
@@ -45,6 +46,19 @@ pipeline {
                     bat "$scannerHome\\bin\\sonar-scanner.bat"
                 }
             }
+        }
+        stage('Quality Gate') {
+            steps {
+                sleep(10)
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+        stage('Deploying') {
+            steps {
+                echo "Deploying Code"
+            }    
         }
         stage('Clean up') {
             steps {
