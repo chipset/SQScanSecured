@@ -18,7 +18,7 @@ pipeline {
         
         //Defined to use SonarScanner from Global Tools.
         def scannerHome = tool 'SQScanner4.0';
-        def qg = waitForQualityGate()
+
     }
     stages {
         stage('Download Code') {
@@ -51,6 +51,7 @@ pipeline {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
                     //Kill run after 10 minutes... should be longer in real life.
+                    def qg = waitForQualityGate()
                     if(qg.status != 'OK') {
                         error "Pipeline Failed Quality Gate: ${qg.status}"
                     }
