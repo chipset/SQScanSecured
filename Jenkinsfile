@@ -4,7 +4,9 @@ pipeline {
         // Set up Environment Variables
         //CHANGE THIS SECTION FOR EACH SYSTEM 
         // OR set up a secret text credential for each of the variables.
-        ENDEVOR=credentials("EndevorHost") //Connection string for Endevor
+        ENDEVOR_HOST_INFO=credentials("EndevorHost") //Connection string for Endevor holding only the stuff we want hidden
+        ENDEVOR_OPTIONS="--comment SQScan --ccid SQSCAN --no-signout true"  //standard options, shouldn't need changing
+        ENDEVOR=" $ENDEVOR_HOST_INFO $ENDEVOR_OPTIONS" //set them as a single variable. First character is a space to ensure command doesn't attach to previous options
 
         ZOWE_OPT_HOSTNAME=credentials("MSTRSVW")
         ZOWE_OPT_HOST="$ZOWE_OPT_HOSTNAME"   //Some commands require ZOWE_OPT_HOST, so it's added here.
@@ -12,7 +14,8 @@ pipeline {
         // z/OSMF Connection Details
         ZOWE_OPT_PORT="443"
         ZOWE_OPT_REJECT_UNAUTHORIZED=false
-
+        
+        //Defined to use SonarScanner from Global Tools.
         def scannerHome = tool 'SQScanner4.0';
     }
     stages {
