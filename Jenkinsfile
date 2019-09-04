@@ -5,9 +5,9 @@ pipeline {
         //CHANGE THIS SECTION FOR EACH SYSTEM 
         // OR set up a secret text credential for each of the variables.
         //ENDEVOR=" $ENDEVOR_OPTIONS" //set them as a single variable. First character is a space to ensure command doesn't attach to previous options
-        ENDEVOR_HOST_INFO=credentials("EndevorHost") //Connection string for Endevor holding only the stuff we want hidden
+        ENDEVOR_OPTIONS_SECURED=credentials("EndevorOptions") //Connection string for Endevor holding only the stuff we want hidden
         ENDEVOR_OPTIONS="--comment SQScanSecured --ccid SQSCAN --os true" //standard options, shouldn't need changing 
-        ENDEVOR=" $ENDEVOR_HOST_INFO $ENDEVOR_OPTIONS" //set them as a single variable. First character is a space to ensure command doesn't attach to previous options
+        ENDEVOR=" $ENDEVOR_OPTIONS_SECURED $ENDEVOR_OPTIONS" //set them as a single variable. First character is a space to ensure command doesn't attach to previous options
 
         ZOWE_OPT_HOSTNAME=credentials("MSTRSVW")
         ZOWE_OPT_HOST="$ZOWE_OPT_HOSTNAME"   //Some commands require ZOWE_OPT_HOST, so it's added here.
