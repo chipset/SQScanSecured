@@ -13,6 +13,7 @@ pipeline {
         ZOWE_OPT_PORT="443"
         ZOWE_OPT_REJECT_UNAUTHORIZED=false
 
+        def scannerHome = tool 'SQScanner4.0';
     }
     stages {
         stage('Download Code') {
@@ -35,7 +36,7 @@ pipeline {
                 bat returnStatus: true, script: 'mkdir copybooks'
                 bat returnStatus: true, script: 'move /y *.COBOL ./cobol'
                 bat returnStatus: true, script: 'move /y *.cpy ./copybooks'
-                def scannerHome = tool 'SQScanner4.0';
+
                 withSonarQubeEnv('VaughnsServer') {
                     bat "%SQScanner4%\\bin\\sonar-scanner.bat"
                 }
