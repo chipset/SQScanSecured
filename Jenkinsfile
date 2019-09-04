@@ -4,9 +4,9 @@ pipeline {
         // Set up Environment Variables
         //CHANGE THIS SECTION FOR EACH SYSTEM 
         // OR set up a secret text credential for each of the variables.
-        //ENDEVOR_OPTIONS="--port 7080 --protocol http --reject-unauthorized false -i NDVRWEBS  --comment SQScanSecured --ccid SQSCAN --os true"  //standard options, shouldn't need changing 
         //ENDEVOR=" $ENDEVOR_OPTIONS" //set them as a single variable. First character is a space to ensure command doesn't attach to previous options
         ENDEVOR_HOST_INFO=credentials("EndevorHost") //Connection string for Endevor holding only the stuff we want hidden
+        ENDEVOR_OPTIONS="--comment SQScanSecured --ccid SQSCAN --os true" //standard options, shouldn't need changing 
         ENDEVOR=" $ENDEVOR_HOST_INFO $ENDEVOR_OPTIONS" //set them as a single variable. First character is a space to ensure command doesn't attach to previous options
 
         ZOWE_OPT_HOSTNAME=credentials("MSTRSVW")
