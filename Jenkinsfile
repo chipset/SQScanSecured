@@ -49,12 +49,8 @@ pipeline {
         }
         stage('Quality Gate') {
             steps {
-                timeout(time: 10, unit: 'MINUTES') {
-                    //Kill run after 10 minutes... should be longer in real life.
-                    def qg = waitForQualityGate()
-                    if(qg.status != 'OK') {
-                        error "Pipeline Failed Quality Gate: ${qg.status}"
-                    }
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
