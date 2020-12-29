@@ -9,7 +9,7 @@ pipeline {
         ENDEVOR_OPTIONS="--comment SQScanSecured --ccid SQSCAN --os true" //standard options, shouldn't need changing 
         ENDEVOR=" $ENDEVOR_OPTIONS_SECURED $ENDEVOR_OPTIONS" //set them as a single variable. First character is a space to ensure command doesn't attach to previous options
 
-        ZOWE_OPT_HOSTNAME=credentials("MSTRSVW")
+        ZOWE_OPT_HOSTNAME=credentials("eosHost1")
         ZOWE_OPT_HOST="$ZOWE_OPT_HOSTNAME"   //Some commands require ZOWE_OPT_HOST, so it's added here.
 
         // z/OSMF Connection Details
