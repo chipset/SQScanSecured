@@ -23,7 +23,7 @@ pipeline {
     stages {
         stage('Download Code') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'mcquitty', usernameVariable: 'ZOWE_OPT_USER', passwordVariable: 'ZOWE_OPT_PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'SR01', usernameVariable: 'ZOWE_OPT_USER', passwordVariable: 'ZOWE_OPT_PASSWORD')]) {
                     bat "C:/Users/Administrator/AppData/Roaming/npm/zowe.cmd endevor retrieve element $elementname --env $toenvironment --sn $tostageid --sys $tosystem --sub $tosubsystem --typ $totype --tf $elementname.$TOTYPE $ENDEVOR  --nosignout"
                 }
             }
