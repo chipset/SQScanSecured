@@ -24,6 +24,7 @@ pipeline {
         stage('Download Code') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'eosCreds', usernameVariable: 'ZOWE_OPT_USER', passwordVariable: 'ZOWE_OPT_PASSWORD')]) {
+                    sleep (5)
                     echo "C:/Users/Administrator/AppData/Roaming/npm/zowe.cmd endevor retrieve element $elementname --env $toenvironment --sn $tostageid --sys $tosystem --sub $tosubsystem --typ $totype --tf $elementname.$TOTYPE $ENDEVOR  --nosignout"
                 }
             }
@@ -49,7 +50,7 @@ pipeline {
         stage('Quality Gate') {
             steps {
                 echo "Quality"
-                // sleep(10)
+                sleep(6)
                 // timeout(time: 1, unit: 'HOURS') {
                 //     waitForQualityGate abortPipeline: true
                 // }
