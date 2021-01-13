@@ -42,6 +42,7 @@ pipeline {
                 // withSonarQubeEnv('VaughnsServer') {
                 //     bat "$scannerHome\\bin\\sonar-scanner.bat"
                 // }
+                sleep(10)
                 echo "Scanning"
             }
         }
