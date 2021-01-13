@@ -24,7 +24,7 @@ pipeline {
         stage('Download Code') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'eosCreds', usernameVariable: 'ZOWE_OPT_USER', passwordVariable: 'ZOWE_OPT_PASSWORD')]) {
-                    bat "C:/Users/Administrator/AppData/Roaming/npm/zowe.cmd endevor retrieve element $elementname --env $toenvironment --sn $tostageid --sys $tosystem --sub $tosubsystem --typ $totype --tf $elementname.$TOTYPE $ENDEVOR  --nosignout"
+                    echo "C:/Users/Administrator/AppData/Roaming/npm/zowe.cmd endevor retrieve element $elementname --env $toenvironment --sn $tostageid --sys $tosystem --sub $tosubsystem --typ $totype --tf $elementname.$TOTYPE $ENDEVOR  --nosignout"
                 }
             }
         }
@@ -34,22 +34,24 @@ pipeline {
                 // We want to ensure these directories exist, however if the call fails, we are ok with that.
                 // Hence the returnStatus always returns true.  The BAT function only works on windows, I believe.
                 // use SH for linux/mac and change the scanner function.  This could also use the scanner plugin.
-                bat returnStatus: true, script: 'mkdir cobol'
-                bat returnStatus: true, script: 'mkdir copybooks'
-                bat returnStatus: true, script: 'move /y *.COBOL ./cobol'
-                bat returnStatus: true, script: 'move /y *.cpy ./copybooks'
+                // bat returnStatus: true, script: 'mkdir cobol'
+                // bat returnStatus: true, script: 'mkdir copybooks'
+                // bat returnStatus: true, script: 'move /y *.COBOL ./cobol'
+                // bat returnStatus: true, script: 'move /y *.cpy ./copybooks'
 
-                withSonarQubeEnv('VaughnsServer') {
-                    bat "$scannerHome\\bin\\sonar-scanner.bat"
-                }
+                // withSonarQubeEnv('VaughnsServer') {
+                //     bat "$scannerHome\\bin\\sonar-scanner.bat"
+                // }
+                echo "Scanning"
             }
         }
         stage('Quality Gate') {
             steps {
-                sleep(10)
-                timeout(time: 1, unit: 'HOURS') {
-                    waitForQualityGate abortPipeline: true
-                }
+                echo "Quality"
+                // sleep(10)
+                // timeout(time: 1, unit: 'HOURS') {
+                //     waitForQualityGate abortPipeline: true
+                // }
             }
         }
         stage('Deploying') {
